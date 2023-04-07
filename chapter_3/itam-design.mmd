@@ -1,0 +1,404 @@
+classDiagram
+    class DepreciationStrategy {
+        +calculate_depreciation(self, funding_details: FundingDetails) -> float
+    }
+
+    class StraightLineDepreciationStrategy {
+        +calculate_depreciation(self, funding_details: FundingDetails) -> float
+    }
+
+    class DecliningBalanceDepreciationStrategy {
+        +calculate_depreciation(self, funding_details: FundingDetails) -> float
+    }
+
+    class DoubleDecliningDepreciationStrategy {
+        +calculate_depreciation(self, funding_details: FundingDetails) -> float
+    }
+
+    class NoDepreciationStrategy {
+        +calculate_depreciation(self, funding_details: FundingDetails) -> float
+    }
+
+    class LineOfBusinessVisitor {
+        +visit_hardware(self, hardware: Hardware) -> None
+        +visit_software(self, software: Software) -> None
+        +visit_depreciating_asset(self, asset: DepreciatingAsset) -> None
+    }
+
+    class FundingDetails {
+        -name: str
+        -lines_of_business: Dict[str, float]
+        -depreciation_strategy: DepreciationStrategy
+        +__init__(self, name: str, lines_of_business: Dict[str, float], depreciation_strategy: DepreciationStrategy)
+        +get_name(self) -> str
+        +get_lines_of_business(self) -> Dict[str, float]
+        +get_line_of_business_percentage(self, line_of_business: str) -> float
+        +get_depreciation_strategy(self) -> DepreciationStrategy
+        +set_name(self, name: str)
+        +set_lines_of_business(self, lines_of_business: Dict[str, float])
+        +set_line_of_business_percentage(self, line_of_business: str, percentage: float)
+        +set_depreciation_strategy(self, depreciation_strategy: DepreciationStrategy)
+    }
+
+    class Asset {
+        -id: int
+        -name: str
+        -status: str
+        -category: str
+        -funding_details: FundingDetails
+        +__init__(self, name: str, status: str, category: str, funding_details: FundingDetails)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_status(self) -> str
+        +get_category(self) -> str
+        +get_funding_details(self) -> FundingDetails
+        +set_name(self, name: str)
+        +set_status(self, status: str)
+        +set_category(self, category: str)
+        +set_funding_details(self, funding_details: FundingDetails)
+        +accept(self, visitor: LineOfBusinessVisitor) -> None
+    }
+
+    class DepreciatingAsset {
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_purchase_date(self) -> date
+        +get_cost(self) -> float
+        +get_funding_details(self) -> FundingDetails
+    }
+
+    class Hardware {
+        -serial_number: str
+        -purchase_date: date
+        -location: str
+        -warranty_expiration_date: date
+        -notes: str
+        -maintenance_schedules: List[MaintenanceSchedule]
+        -service_history: List[ServiceEvent]
+        -warranty: Warranty
+        -retirement_date: date
+        -retirement_reason: str
+        -usage_statistics: UsageStatistics
+        -budget: Budget
+        +__init__(self, name: str, status: str, category: str, funding_details: FundingDetails, serial_number: str, purchase_date
+    }
+
+    class Software {
+        -license_key: str
+        -license_expiration_date: date
+        -version: str
+        -support_end_date: date
+        -release_date: date
+        -vendor: str
+        -language: str
+        +__init__(self, name: str, status: str, category: str, funding_details: FundingDetails, license_key: str, version: str, vendor: str, language: str)
+        +get_license_key(self) -> str
+        +get_license_expiration_date(self) -> date
+        +get_version(self) -> str
+        +get_support_end_date(self) -> date
+        +get_release_date(self) -> date
+        +get_vendor(self) -> str
+        +get_language(self) -> str
+        +set_license_key(self, license_key: str)
+        +set_license_expiration_date(self, license_expiration_date: date)
+        +set_version(self, version: str)
+        +set_support_end_date(self, support_end_date: date)
+        +set_release_date(self, release_date: date)
+        +set_vendor(self, vendor: str)
+        +set_language(self, language: str)
+        +accept(self, visitor: LineOfBusinessVisitor) -> None
+    }
+
+    class HasHardware {
+        +get_hardware(self) -> List[Hardware]
+    }
+
+    class User {
+        -id: int
+        -username: str
+        -password: str
+        -email: str
+        -first_name: str
+        -last_name: str
+        -role: Role
+        +__init__(self, username: str, password: str, email: str, first_name: str, last_name: str, role: Role)
+        +get_id(self) -> int
+        +get_username(self) -> str
+        +get_password(self) -> str
+        +get_email(self) -> str
+        +get_first_name(self) -> str
+        +get_last_name(self) -> str
+        +get_role(self) -> Role
+        +set_username(self, username: str)
+        +set_password(self, password: str)
+        +set_email(self, email: str)
+        +set_first_name(self, first_name: str)
+        +set_last_name(self, last_name: str)
+        +set_role(self, role: Role)
+    }
+
+    class Role {
+        -id: int
+        -name: str
+        -description: str
+        -permissions: List[str]
+        +__init__(self, name: str, description: str, permissions: List[str])
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_permissions(self) -> List[str]
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_permissions(self, permissions: List[str])
+    }
+
+    class Budget {
+        -id: int
+        -name: str
+        -description: str
+        -amount: float
+        -start_date: date
+        -end_date: date
+        -line_of_business: str
+        +__init__(self, name: str, description: str, amount: float, start_date: date, end_date: date, line_of_business: str)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_amount(self) -> float
+        +get_start_date(self) -> date
+        +get_end_date(self) -> date
+        +get_line_of_business(self) -> str
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_amount(self, amount: float)
+        +set_start_date(self, start_date: date)
+        +set_end_date(self, end_date: date)
+        +set_line_of_business(self, line_of_business: str)
+    }
+
+    class MaintenanceSchedule {
+        -id: int
+        -name: str
+        -description: str
+        -start_date: date
+        -end_date: date
+        -hardware: Hardware
+        +__init__(self, name: str, description: str, start_date: date, end_date: date, hardware: Hardware)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_start_date(self) -> date
+        +get_end_date(self) -> date
+        +get_hardware(self) -> Hardware
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_start_date(self, start_date: date)
+        +set_end_date(self, end_date: date)
+        +set_hardware(self, hardware: Hardware)
+    }
+
+    class ServiceEvent {
+        -id: int
+        -name: str
+        -description: str
+        -date: date
+        -hardware: Hardware
+        -software: Software
+        -notes: str
+        +__init__(self, name: str, description: str, date: date, hardware: Hardware, software: Software, notes: str)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_date(self) -> date
+        +get_hardware(self) -> Hardware
+        +get_software(self) -> Software
+        +get_notes(self) -> str
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_date(self, date: date)
+        +set_hardware(self, hardware: Hardware)
+        +set_software(self, software: Software)
+        +set_notes(self, notes: str)
+    }
+
+    class Warranty {
+        -id: int
+        -name: str
+        -description: str
+        -start_date: date
+        -end_date: date
+        -hardware: Hardware
+        +__init__(self, name: str, description: str, start_date: date, end_date: date, hardware: Hardware)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_start_date(self) -> date
+        +get_end_date(self) -> date
+        +get_hardware(self) -> Hardware
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_start_date(self, start_date: date)
+        +set_end_date(self, end_date: date)
+        +set_hardware(self, hardware: Hardware)
+    }
+
+    class UsageStatistics {
+        -id: int
+        -hardware: Hardware
+        -start_date: date
+        -end_date: date
+        -total_up_time: float
+        -total_down_time: float
+        -average_up_time: float
+        -average_down_time: float
+        +__init__(self, hardware: Hardware, start_date: date, end_date: date, total_up_time: float, total_down_time: float, average_up_time: float, average_down_time: float)
+        +get_id(self) -> int
+        +get_hardware(self) -> Hardware
+        +get_start_date(self) -> date
+        +get_end_date(self) -> date
+        +get_total_up_time(self) -> float
+        +get_total_down_time(self) -> float
+        +get_average_up_time(self) -> float
+        +get_average_down_time(self) -> float
+        +set_hardware(self, hardware: Hardware)
+        +set_start_date(self, start_date: date)
+        +set_end_date(self, end_date: date)
+        +set_total_up_time(self, total_up_time: float)
+        +set_total_down_time(self, total_down_time: float)
+        +set_average_up_time(self, average_up_time: float)
+        +set_average_down_time(self, average_down_time: float)
+    }
+
+    class Location {
+        -id: int
+        -name: str
+        -description: str
+        -address: str
+        -city: str
+        -state: str
+        -country: str
+        -postal_code: str
+        +__init__(self, name: str, description: str, address: str, city: str, state: str, country: str, postal_code: str)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_address(self) -> str
+        +get_city(self) -> str
+        +get_state(self) -> str
+        +get_country(self) -> str
+        +get_postal_code(self) -> str
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_address(self, address: str)
+        +set_city(self, city: str)
+        +set_state(self, state: str)
+        +set_country(self, country: str)
+        +set_postal_code(self, postal_code: str)
+    }
+
+    class Department {
+        -id: int
+        -name: str
+        -description: str
+        -line_of_business: str
+        -location: Location
+        -budget: Budget
+        -employees: List[User]
+        +__init__(self, name: str, description: str, line_of_business: str, location: Location, budget: Budget)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_line_of_business(self) -> str
+        +get_location(self) -> Location
+        +get_budget(self) -> Budget
+        +get_employees(self) -> List[User]
+        +set_name(self, name: str)
+        +set_description(self, description: str)
+        +set_line_of_business(self, line_of_business: str)
+        +set_location(self, location: Location)
+        +set_budget(self, budget: Budget)
+        +add_employee(self, employee: User) -> None
+        +remove_employee(self, employee: User) -> None
+    }
+
+    class Organization {
+        -id: int
+        -name: str
+        -description: str
+        -location: Location
+        -departments: List[Department]
+        -users: List[User]
+        +__init__(self, name: str, description: str, location: Location)
+        +get_id(self) -> int
+        +get_name(self) -> str
+        +get_description(self) -> str
+        +get_location(self) -> Location
+        +get_departments(self) -> List[Department]
+        +get_users(self) -> List[User]
+        +set_name(self, name: str)
+       
+        +set_description(self, description: str)
+        +set_location(self, location: Location)
+        +add_department(self, department: Department) -> None
+        +remove_department(self, department: Department) -> None
+        +add_user(self, user: User) -> None
+        +remove_user(self, user: User) -> None
+    }
+
+    class LineOfBusinessVisitor {
+        +visit_hardware(self, hardware: Hardware) -> None
+        +visit_software(self, software: Software) -> None
+    }
+
+    class DepartmentStatistics {
+        -department: Department
+        -total_cost: float
+        -total_depreciation: float
+        +__init__(self, department: Department, total_cost: float, total_depreciation: float)
+        +get_department(self) -> Department
+        +get_total_cost(self) -> float
+        +get_total_depreciation(self) -> float
+        +set_department(self, department: Department)
+        +set_total_cost(self, total_cost: float)
+        +set_total_depreciation(self, total_depreciation: float)
+    }
+
+    User -- Role
+    Role -- Permission
+    User -- Budget
+    Budget -- FundingDetails
+    FundingDetails *-- LineOfBusinessPercentage
+    Asset *-- Hardware
+    Asset *-- Software
+    Asset *-- Consumable
+    Hardware *-- MaintenanceSchedule
+    Hardware *-- Warranty
+    Hardware *-- UsageStatistics
+    Hardware *-- ServiceEvent
+    Budget *-- Department
+    Department *-- Location
+    Organization *-- Department
+    Organization *-- User
+    FundingDetails <-- DepreciationStrategy
+    DepreciationStrategy <|.. StraightLineDepreciationStrategy
+    DepreciationStrategy <|.. DecliningBalanceDepreciationStrategy
+    DepreciationStrategy <|.. DoubleDecliningDepreciationStrategy
+    DepreciationStrategy <|.. NoDepreciationStrategy
+    LineOfBusinessPercentage ..> Hardware : allocates
+    LineOfBusinessPercentage ..> Software : allocates
+    LineOfBusinessPercentage ..> Consumable : allocates
+    Asset ..> LineOfBusinessPercentage : belongs to
+    Hardware ..> MaintenanceSchedule : has
+    Hardware ..> Warranty : has
+    Hardware ..> UsageStatistics : has
+    Hardware ..> ServiceEvent : has
+    Department ..> Budget : has
+    Department ..> Location : located in
+    Organization ..> Department : has
+    Organization ..> User : has
+    LineOfBusinessVisitor --> Hardware : visit_hardware
+    LineOfBusinessVisitor --> Software : visit_software
+    BusinessLineStatistics *-- LineOfBusinessPercentage
+    BusinessLineStatistics ..> Hardware : calculates
+    BusinessLineStatistics ..> Software : calculates
+    BusinessLineStatistics ..> Consumable : calculates
