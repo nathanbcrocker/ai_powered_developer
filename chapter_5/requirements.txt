@@ -1,0 +1,9 @@
+# pip install uvicorn 
+# pip install fastapi
+
+uvicorn==0.22.0
+fastapi==0.95.1
+psycopg2-binary==2.9.6
+SQLAlchemy==2.0.13
+pandas==2.0.1
+numpy==1.24.3

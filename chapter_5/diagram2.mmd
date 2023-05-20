@@ -1,0 +1,40 @@
+graph LR
+  User[User] --> ITAM_UI[ITAM User Interface]
+  ITAM_UI --> AssetController[Asset Controller]
+  ITAM_UI --> UserController[User Controller]
+
+  AssetController --> AssetService[Asset Service]
+  UserController --> UserService[User Service]
+
+  AssetService --> HardwareRepository[Hardware Repository]
+  AssetService --> VendorRepository[Vendor Repository]
+  AssetService --> ProcurementRepository[Procurement Repository]
+  UserService --> UserRepository[User Repository]
+
+  HardwareRepository --> HardwareAPI[Hardware API]
+  VendorRepository --> VendorAPI[Vendor API]
+  ProcurementRepository --> ProcurementAPI[Procurement API]
+  UserRepository --> AuthAPI[Authentication & Authorization API]
+
+  HardwareAPI --> DB1[(Hardware Database)]
+  VendorAPI --> DB2[(Vendor Database)]
+  ProcurementAPI --> DB3[(Procurement Database)]
+  AuthAPI --> DB4[(User Database)]
+
+  class User user;
+  class ITAM_UI ui;
+  class AssetController assetController;
+  class UserController userController;
+  class AssetService assetService;
+  class UserService userService;
+  class HardwareRepository hardwareRepository;
+  class VendorRepository vendorRepository;
+  class ProcurementRepository procurementRepository;
+  class UserRepository userRepository;
+  class HardwareAPI hardwareAPI;
+  class VendorAPI vendorAPI;
+  class ProcurementAPI procurementAPI;
+  class DB1 db1; 
+  class DB2 db2;
+  class DB3 db3;
+  class DB4 db4;
