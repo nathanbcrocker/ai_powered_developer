@@ -7,11 +7,15 @@
 # The methods should be named create, read, update, get_assets, and delete.
 
 from itam.domain.asset import Asset
+from itam.infrastructure.mediators.asset_location_mediator import AssetLocationMediator
+from itam.domain.events.asset_location_updated import AssetLocationUpdated
 from itam.infrastructure.repository.base_repository import BaseRepository
 
 class AssetManager:
-    def __init__(self, base_repository: BaseRepository[Asset]):
+    def __init__(self, base_repository: BaseRepository[Asset], mediator: AssetLocationMediator):
         self._repository = base_repository
+        self.mediator = mediator
+        self.mediator.register_handler(AssetLocationUpdated, self.update_asset_location)
     
     def create(self, asset: Asset) -> Asset:
         self._repository.create(asset)
@@ -29,3 +33,9 @@ class AssetManager:
     
     def delete(self, asset_id: int) -> None:
         self._repository.delete(asset_id)
+
+    def update_asset_location(self, event: AssetLocationUpdated) -> None:
+        asset = self.read(event.asset_id)
+        asset.add_location(event.latitude, event.longitude, event.timestamp)
+        #self.update(asset)
+        print(f"Asset {asset.id} location updated to {event.latitude}, {event.longitude} at {event.timestamp}")

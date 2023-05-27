@@ -15,7 +15,7 @@
 
 from datetime import datetime
 from itam.domain.asset import Asset
-from itam.domain.location import Location
+#from itam.domain.location import Location
 from itam.domain.warranty import Warranty
 from itam.domain.maintenance_schedule import MaintenanceSchedule
 from itam.domain.usage_statistics import UsageStatistics
@@ -23,7 +23,7 @@ from itam.domain.budget import Budget
 
 class Hardware(Asset):
     serial_number: str
-    location: Location
+    #location: Location
     warranty_expiration_date: datetime
     notes: str
     maintenance_schedules: list[MaintenanceSchedule]
@@ -36,8 +36,8 @@ class Hardware(Asset):
     def get_serial_number(self) -> str:
         return self.serial_number
 
-    def get_location(self) -> Location:
-        return self.location
+    #def get_location(self) -> Location:
+    #    return self.location
 
     def get_warranty_expiration_date(self) -> datetime:
         return self.warranty_expiration_date

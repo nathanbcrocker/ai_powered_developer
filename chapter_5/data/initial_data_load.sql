@@ -13,7 +13,8 @@ grant usage on schema itam to itam_user;
 grant usage on schema itam to itam_admin;
 grant select, insert, update, delete on all tables in schema itam to itam_user;
 grant select, insert, update, delete on all tables in schema itam to itam_admin;
-grant usage, drop on schema itam to itam_admin;
+grant create on schema itam to itam_admin;
+grant USAGE, create on schema itam to itam_admin;
 
 -- grant ownership of the itam schema to itam_admin
 alter schema itam owner to itam_admin;
@@ -155,3 +156,19 @@ from (
         random() * 0.4 as depreciation_rate
     from generate_series(1, 1000)
 ) as funding_details;
+
+
+
+CREATE TABLE itam.asset_locations (
+    id SERIAL PRIMARY KEY,
+    asset_id INTEGER NOT NULL,
+    latitude FLOAT NOT NULL,
+    longitude FLOAT NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+    FOREIGN KEY (asset_id) REFERENCES itam.assets (id)
+);
+
+grant select, insert, update, delete on all tables in schema itam to itam_user;
+grant select, insert, update, delete on all tables in schema itam to itam_admin;
+grant create on schema itam to itam_admin;
+grant USAGE, create on schema itam to itam_admin;

@@ -5,20 +5,11 @@ from dataclasses import dataclass
 from itam.domain.address import Address
 from itam.domain.organization import Organization
 from typing import Optional
+from datetime import date
 
 @dataclass
 class Location:
-    id: int
-    name: str
-    address: Address
-    organization: Optional[Organization]
-
-    def __post_init__(self):
-        if self.id is None:
-            raise TypeError("Id cannot be None")
-        if self.name is None:
-            raise TypeError("Name cannot be None")
-        if self.address is None:
-            raise TypeError("Address cannot be None")
-        if self.organization is None:
-            raise TypeError("Organization cannot be None")
+    asset_id: int
+    latitude: float
+    longitude: float
+    timestamp: date

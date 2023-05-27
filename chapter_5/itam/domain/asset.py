@@ -14,6 +14,8 @@
 
 from dataclasses import dataclass
 from datetime import date
+from typing import List
+from itam.domain.location import Location
 
 @dataclass
 class Asset():
@@ -25,6 +27,7 @@ class Asset():
     useful_life: int
     salvage_value: float
     purchase_date: date
+    locations: List[Location]
 
     def __post_init__(self):
         if self.id is None:
@@ -69,3 +72,7 @@ class Asset():
 
     def get_funding_details(self):
         return self.funding_details
+    
+    def add_location(self, latitude: float, longitude: float, timestamp: date):
+        location = Location(self.id, latitude, longitude, timestamp)
+        self.locations.append(location)
