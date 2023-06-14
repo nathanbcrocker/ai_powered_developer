@@ -20,7 +20,14 @@ def test_get_assets():
         
     asset_rest_port = AssetRestPortMock(asset_repository)
     # Add some assets to the repository
-    asset1 = Asset(1, 'Computer', 'In use', 'Hardware', 1000.0, 3, 100.0, date.today(), [])
+   # This code creates two Asset objects and prints their Asset IDs.
+
+asset1 = Asset(1, 'Computer', 'In use', 'Hardware', 1000.0, 3, 100.0, date.today(), [])
+asset2 = Asset(2, 'Printer', 'In use', 'Hardware', 500.0, 2, 50.0, date.today(), [])
+print(asset1.id)
+print(asset2.id)
+
+ asset1 = Asset(1, 'Computer', 'In use', 'Hardware', 1000.0, 3, 100.0, date.today(), [])
     asset2 = Asset(2, 'Printer', 'In use', 'Hardware', 500.0, 2, 50.0, date.today(), [])
     dept_it = Department(1, 'IT')
     dept_hr = Department(2, 'HR')

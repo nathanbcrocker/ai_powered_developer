@@ -12,3 +12,4 @@
 {"asset_id": 1, "latitude": 41.8800, "longitude": -87.6250, "timestamp": "2022-01-01T01:30:00Z"}
 
 {"asset_id": 1, "latitude": 40.7128, "longitude": -74.0060, "timestamp": "2022-01-01T13:30:00Z"}
+
