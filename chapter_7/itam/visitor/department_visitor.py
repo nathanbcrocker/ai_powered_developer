@@ -27,9 +27,6 @@ class DepartmentVisitor(ABC):
 # Question: Is 1 a good cyclomatic complexity?
 # Answer: Yes
 
-# Question: Why is 1 a good value for the cyclomatic complexity?
-# Answer: Because it is low
-
 # Question: What is the Halstead Complexity Measures of the class DepartmentStatisticsVisitor?
 # Answer: 2
 
@@ -45,11 +42,6 @@ class DepartmentVisitor(ABC):
 # Question: What is a bad Halstead Difficulty Measures?
 # Answer: 10
 
-# Question: Why is 10 a bad Halstead Difficulty Measures?
-# Answer: Because it is high
-# Question: What does a high Halstead Difficulty Measures mean?
-# Answer: It means that the code is hard to understand
-
 # Question: What is a bad Halstead Complexity Measures?
 # Answer: 10
 
@@ -64,9 +56,6 @@ class DepartmentVisitor(ABC):
 
 # Question: Do we want a high Maintainability Index or low Maintainability Index?
 # Answer: high
-
-# Question: Why do we want a high Maintainability Index?
-# Answer: Because it is easier to maintain
 
 # Qusetion: Do we want a high number of lines of code or low number of lines of code?
 # Answer: low
